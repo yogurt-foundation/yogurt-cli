@@ -1,0 +1,37 @@
+{
+  "name": "create-yogurt-app",
+  "version": "1.0.0",
+  "description": "Scaffolding a new project with Yogurt CSS framework",
+  "authors": "Loouis Low <loouis@gmail.com>",
+  "license": "MIT",
+  "bin": "cli.js",
+  "files": [
+    "cli.js",
+    "prompts.js",
+    "saofile.js",
+    "template/"
+  ],
+  "repository": {
+    "url": "git+https://github.com/yogurt-foundation/create-yogurt-app.git",
+    "type": "git"
+  },
+  "keywords": [
+    "yogurt.css",
+    "scaffolding-wizards",
+    "boilerplate-frontend"
+  ],
+  "scripts": {},
+  "dependencies": {
+    "cac": "^6.5.6",
+    "chalk": "^2.4.2",
+    "cli-welcome": "^1.4.0",
+    "cross-spawn": "^7.0.1",
+    "envinfo": "^7.5.0",
+    "glob": "^7.1.6",
+    "lodash": "^4.17.15",
+    "sao": "^1.7.0",
+    "superb": "^4.0.0",
+    "validate-npm-package-name": "^3.0.0"
+  },
+  "devDependencies": {}
+}
