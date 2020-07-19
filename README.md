@@ -1,6 +1,10 @@
-## Create Yogurt CSS Project
+## CLI
 
 Create a new frontend project with [Yogurt CSS](https://github.com/yogurt-foundation/yogurt-css) framework and scaffolding instantly bundles with necessary build tools for HTML, CSS/SCSS, JS and image assets.
+
+<p align="center">
+  <img src="assets/screenshot_01.png" height="auto" width="auto">
+</p>
 
 ### _usage
 
