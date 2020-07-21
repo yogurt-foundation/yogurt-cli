@@ -1,4 +1,4 @@
-## CLI
+## Yogurt CLI
 
 Create a new frontend project with [Yogurt CSS](https://github.com/yogurt-foundation/yogurt-css) framework and scaffolding instantly bundles with necessary build tools for HTML, CSS/SCSS, JS and image assets.
 
@@ -40,4 +40,4 @@ $ yarn watch
 
 ---
 
-[MIT](https://github.com/yogurt-foundation/create-yogurt-app/blob/master/LICENSE)
+[MIT](https://github.com/yogurt-foundation/yogurt-cli/blob/master/LICENSE)
