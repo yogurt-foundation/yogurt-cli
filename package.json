@@ -1,10 +1,12 @@
 {
-  "name": "create-yogurt-app",
-  "version": "1.0.1",
-  "description": "Scaffolding a new project with Yogurt CSS framework",
+  "name": "yogurt-cli",
+  "version": "1.0.2",
+  "description": "Software Development Kit for Yogurt CSS",
   "authors": "Loouis Low <loouis@gmail.com>",
   "license": "MIT",
-  "bin": "cli.js",
+  "bin": {
+    "yogurt": "cli.js"
+  },
   "files": [
     "cli.js",
     "prompts.js",
@@ -12,13 +14,15 @@
     "template/"
   ],
   "repository": {
-    "url": "git+https://github.com/yogurt-foundation/create-yogurt-app.git",
+    "url": "git+https://github.com/yogurt-foundation/yogurt-cli.git",
     "type": "git"
   },
   "keywords": [
-    "yogurt.css",
+    "yogurt",
+    "yogurt-cli",
     "scaffolding-wizards",
-    "boilerplate-frontend"
+    "boilerplate-frontend",
+    "devkit"
   ],
   "scripts": {},
   "dependencies": {
