@@ -78,7 +78,6 @@ gulp.task('sass', () => {
 // ...bundle with Yogurt
 gulp.task('css', () => {
   return gulp.src([
-      frameworkPath + '/yogurt.min.css',
       distCssPath + '/base.css'
     ])
     .pipe(concat('style_merged.css'))
