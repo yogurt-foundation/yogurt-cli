@@ -3,39 +3,33 @@
 Create a new frontend project with [Yogurt CSS](https://github.com/yogurt-foundation/yogurt-css) framework and scaffolding instantly bundles with necessary build tools for HTML, CSS/SCSS, JS and image assets.
 
 <p align="center">
-  <img src="assets/screenshot_01.png" height="auto" width="auto">
+  <img src="https://github.com/yogurt-foundation/yogurt-cli/blob/master/assets/screenshot_01.png" height="auto" width="auto">
 </p>
 
 ### _usage
 
-make sure you have [npx](https://www.npmjs.com/package/npx) installed,
+make sure you have [npx](https://www.npmjs.com/package/npx) or with [yarn](https://yarnpkg.com/en/) installed, you can create new Yogurt project without installing the package,
 
 ```bash
-$ npx create-yogurt-app my-new-project
-$ cd my-new-project
-```
-
-or with [yarn](https://yarnpkg.com/en/),
-
-```bash
+# YARN
 $ yarn create yogurt-app my-new-project
-$ cd my-new-project
+# NPM
+$ npx create-yogurt-app my-new-project
 ```
 
-### _setup
-
-scaffolding your new app files and build the app for the first time,
+if you install the package `locally`,
 
 ```bash
-$ yarn build-dev
+# YARN
+$ yarn global add create-yogurt-app
+# NPM
+$ npm i -g create-yogurt-app
 ```
 
-### _dev
-
-serve and develop your frontend project,
+simply run this,
 
 ```bash
-$ yarn watch
+$ yogurt my-new-project
 ```
 
 ---
