@@ -16,7 +16,7 @@
     "build-html": "npm run gulp html",
     "build-image": "npm run gulp image",
     "serve": "npm run gulp serve",
-    "get-frameworks": "rm -rf ./framework && git clone https://github.com/loouislow81/precompiled-krugurt-core-libs.git ./framework && rm -rf ./framework/.git && cp ./framework/yogurt.min.css ./framework/yogurt.min.scss"
+    "get-frameworks": "rm -rf ./framework && git clone https://github.com/loouislow81/precompiled-krugurt-core-libs.git ./framework && rm -rf ./framework/.git && cp ./framework/yogurt.min.css ./framework/yogurt.scss"
   },
   "devDependencies": {
     "autoprefixer": "^9.4.3",
