@@ -20,20 +20,10 @@ const uglify = require('gulp-uglify-es').default
 const webp = require('gulp-webp')
 const version = require('gulp-version-number')
 const gulpLoadPlugins = require('gulp-load-plugins')
-
-const $ = gulpLoadPlugins()
-const versionConfig = {
-  'value': '%MDS%',
-  'append': {
-    'key': 'v',
-    'to': ['css', 'js']
-  }
-}
+const inject = gulpLoadPlugins()
 
 const frameworkPath = 'framework'
-
 const distJsPath = 'dist/assets/js'
-
 const distProdPath = 'dist'
 const distProdRecursivePath = 'dist/**/*'
 
@@ -58,6 +48,10 @@ gulp.task('serve', gulp.series(function(done) {
 
 
 // ...minify html
+const versionConfig = {
+  'value': '%MDS%', // using MDS hash
+  'append': { 'key': 'v', 'to': ['css', 'js'] }
+}
 const srcHtmlPath = 'src/views/**/**/**/**/*.html'
 gulp.task('html', () => {
   return gulp.src(srcHtmlPath)
@@ -67,6 +61,7 @@ gulp.task('html', () => {
       jsmin: true, // inline js
       cssmin: true // inline css
     }))
+    // inject versioning to (css,js) static assets
     .pipe($.versionNumber(versionConfig))
     .pipe(gulp.dest(distProdPath))
 })
