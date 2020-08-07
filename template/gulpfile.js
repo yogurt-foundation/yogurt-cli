@@ -18,6 +18,17 @@ const serve = require('browser-sync').create()
 const uglifyCss = require('gulp-uglifycss')
 const uglify = require('gulp-uglify-es').default
 const webp = require('gulp-webp')
+const version = require('gulp-version-number')
+const gulpLoadPlugins = require('gulp-load-plugins')
+
+const $ = gulpLoadPlugins()
+const versionConfig = {
+  'value': '%MDS%',
+  'append': {
+    'key': 'v',
+    'to': ['css', 'js']
+  }
+}
 
 const frameworkPath = 'framework'
 
@@ -56,6 +67,7 @@ gulp.task('html', () => {
       jsmin: true, // inline js
       cssmin: true // inline css
     }))
+    .pipe($.versionNumber(versionConfig))
     .pipe(gulp.dest(distProdPath))
 })
 
