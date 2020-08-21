@@ -62,7 +62,7 @@ gulp.task('html', () => {
       cssmin: true // inline css
     }))
     // inject versioning to (css,js) static assets
-    .pipe($.versionNumber(versionConfig))
+    .pipe(inject.versionNumber(versionConfig))
     .pipe(gulp.dest(distProdPath))
 })
 
