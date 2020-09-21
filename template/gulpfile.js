@@ -34,26 +34,21 @@ reload = (done) => {
   done()
 }
 
-
-// ...serve http
 gulp.task('serve', gulp.series(function(done) {
   serve.init({
-    server: {
-      baseDir: distProdPath
-    },
+    server: { baseDir: distProdPath },
     notify: false
   })
   done()
 }))
 
 
-// ...minify html
-const versionConfig = {
-  'value': '%MDS%', // using MDS hash
-  'append': { 'key': 'v', 'to': ['css', 'js'] }
-}
-const srcHtmlPath = 'src/views/**/**/**/**/*.html'
-gulp.task('html', () => {
+gulp.task('build-html', () => {
+  const versionConfig = {
+    'value': '%MDS%', // using MDS hash
+    'append': { 'key': 'v', 'to': ['css', 'js'] }
+  }
+  const srcHtmlPath = 'src/views/**/**/**/**/*.html'
   return gulp.src(srcHtmlPath)
     .pipe(htmlmin({
       collapseWhitespace: true,
@@ -67,10 +62,9 @@ gulp.task('html', () => {
 })
 
 
-// ...minify/preprocess scss
 const srcScssPath = 'src/assets/scss/base.scss'
 const distCssPath = 'dist/assets/css'
-gulp.task('sass', () => {
+gulp.task('build-sass', () => {
   return gulp.src(srcScssPath)
     .pipe(sassGlob())
     .pipe(sass({ outputStyle: 'compressed' })
@@ -82,9 +76,9 @@ gulp.task('sass', () => {
     }))
     .pipe(gulp.dest(distCssPath))
 })
-// ...bundle with Yogurt
-gulp.task('css', () => {
+gulp.task('bundle-css', () => {
   return gulp.src([
+      frameworkPath + '/yogurt.min.css',
       distCssPath + '/base.css'
     ])
     .pipe(concat('style_merged.css'))
@@ -95,10 +89,9 @@ gulp.task('css', () => {
 })
 
 
-// ...bundle your custom js
-const srcAppJsPath = 'src/views'
-const srcComponentsJsPath = 'src/assets/js/**/**/**/**/*.js'
-gulp.task('pre-scripts', () => {
+gulp.task('build-js', () => {
+  const srcAppJsPath = 'src/views'
+  const srcComponentsJsPath = 'src/assets/js/components/*.js'
   return gulp.src([
       srcAppJsPath + '/app.js', // default bundle
       srcComponentsJsPath
@@ -115,9 +108,9 @@ gulp.task('pre-scripts', () => {
       stream: true
     }))
 })
-// ...bundle js files
-gulp.task('scripts', () => {
+gulp.task('bundle-js', () => {
   return gulp.src([
+      // your js files here...
       distJsPath + '/scripts.pre.js'
     ])
     .pipe(concat('app.js'))
@@ -129,124 +122,171 @@ gulp.task('scripts', () => {
 
 
 const srcImageRecursivePath = 'src/assets/image/**/*'
-const distImagePath = 'dist/assets/image'
-// (development)
-gulp.task('move-image', () => {
+const distLqImagePath = 'dist/assets/image/low'
+const distHqImagePath = 'dist/assets/image/high'
+gulp.task('move-image-low', () => {
   return gulp.src(srcImageRecursivePath)
-    .pipe(gulp.dest(distImagePath))
+    .pipe(gulp.dest(distLqImagePath))
 })
-// (production)
-gulp.task('image', () => {
+gulp.task('move-image-high', () => {
+  return gulp.src(srcImageRecursivePath)
+    .pipe(gulp.dest(distHqImagePath))
+})
+
+gulp.task('optimize-image-low', () => {
+  return gulp.src(srcImageRecursivePath)
+    .pipe(imagemin([
+      pngquant({ quality: [0.5, 0.5] }), // set png quality
+      mozjpeg({ quality: 50 }), // set jpg quality
+    ]))
+    .pipe(gulp.dest(distLqImagePath))
+})
+gulp.task('optimize-image-high', () => {
   return gulp.src(srcImageRecursivePath)
     .pipe(imagemin([
       pngquant({ quality: [0.8, 0.8] }), // set png quality
       mozjpeg({ quality: 80 }), // set jpg quality
     ]))
-    .pipe(gulp.dest(distImagePath))
+    .pipe(gulp.dest(distHqImagePath))
 })
+gulp.task('optimize-webp-low', () => {
+  return gulp.src(srcImageRecursivePath)
+    .pipe(webp({ quality: 50 })) // set webp quality
+    .pipe(gulp.dest(distLqImagePath))
+});
+gulp.task('optimize-webp-high', () => {
+  return gulp.src(srcImageRecursivePath)
+    .pipe(webp({ quality: 80 })) // set webp quality
+    .pipe(gulp.dest(distHqImagePath))
+});
 
 
-// (development)
 gulp.task('move-css', () => {
   return gulp.src(distCssPath + '/style_merged.css')
     .pipe(rename('style.css'))
     .pipe(gulp.dest(distCssPath))
 })
-// (production)
+
+
 gulp.task('purge-css', () => {
   return gulp.src(distCssPath + '/style_merged.css')
     .pipe(purgeCss({
-        content: [
-          'src/views/**/**/**/**/**/**/*.html'
-        ],
-        // make compatible for `Yogurt CSS` framework
-        defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
-        whitelistPatterns: [/-webkit-scrollbar-thumb$/],
-        keyframes: true
+      content: [
+        'src/views/**/**/**/**/**/**/*.html'
+      ],
+      // make compatible for `Yogurt CSS` framework
+      defaultExtractor: content => content.match(/[\w-/:]+(?<!:)/g) || [],
+      whitelistPatterns: [/-webkit-scrollbar-thumb$/]
     }))
     .pipe(rename('style.css'))
     .pipe(gulp.dest(distCssPath))
 })
 
-
-// (production)
-gulp.task('remove-js', () => {
+gulp.task('remove-junk-js', () => {
   return gulp.src([
-  distProdPath + '/assets/js/scripts.js',
-  distProdPath + '/assets/js/scripts.pre.js'
-  ], {
-    read: false,
-    allowEmpty: true
-  })
-  .pipe(clean())
-})
-gulp.task('remove-css', () => {
-  return gulp.src([
-  distProdPath + '/assets/css/base.css',
-  distProdPath + '/assets/css/style_merged.css'
-  ], {
-    read: false,
-    allowEmpty: true
-  })
-  .pipe(clean())
+      distProdPath + '/assets/js/scripts.js',
+      distProdPath + '/assets/js/scripts.pre.js'
+    ], {
+      read: false,
+      allowEmpty: true
+    })
+    .pipe(clean())
 })
 
 
-const watchSrcAppPath = 'src/views/**/*.js'
-const watchSrcHtmlPath = 'src/views/**/*.html'
-const watchSrcScssPath = 'src/assets/scss/**/*.scss'
-const watchSrcScriptsPath = 'src/assets/js/**/*.js'
-const watchSrcImagePath = 'src/assets/image/**/*'
-gulp.task('watch', gulp.series([
+gulp.task('remove-junk-css', () => {
+  return gulp.src([
+      distProdPath + '/assets/css/base.css',
+      distProdPath + '/assets/css/style_merged.css'
+    ], {
+      read: false,
+      allowEmpty: true
+    })
+    .pipe(clean())
+})
 
-    'pre-scripts',
-    'scripts',
-    'sass',
-    'css',
-    'move-css',
-    'move-image',
-    'html',
-    'serve'
 
-  ], () => {
+gulp.task('production', gulp.series(
+  'build-js',
+  'bundle-js',
+  'build-sass',
+  'bundle-css',
+  'purge-css',
+  'build-html',
+  'optimize-image-low',
+  'optimize-image-high',
+  'remove-junk-js',
+  'remove-junk-css'
+))
 
-    gulp.watch(watchSrcImagePath,
-      gulp.series([
-        'move-image',
-        reload
-      ])
-    )
 
-    gulp.watch(watchSrcScriptsPath,
-      gulp.series([
-        'pre-scripts',
-        'scripts',
-        reload
-        ])
-      )
+gulp.task('development', gulp.series([
 
-    gulp.watch(watchSrcAppPath,
-      gulp.series([
-        'pre-scripts',
-        'scripts',
-        reload
-      ])
-    )
+  'build-js',
+  'bundle-js',
+  'build-sass',
+  'bundle-css',
+  'move-css',
+  'build-html',
+  'move-image-low',
+  'move-image-high',
+  'serve'
 
-    gulp.watch(watchSrcScssPath,
-      gulp.series([
-        'sass',
-        'css',
-        reload
-      ])
-    )
+], () => {
 
-    gulp.watch(watchSrcHtmlPath,
-      gulp.series([
-        'html',
-        reload
-      ])
-    )
+  const watchSrcImagePath = 'src/assets/image/**/*'
+  gulp.watch(watchSrcImagePath,
+    gulp.series([
+      'move-image-high',
+      //'move-webp-high',
+      reload
+    ])
+  )
 
-  })
-)
+  gulp.watch(watchSrcImagePath,
+    gulp.series([
+      'move-image-low',
+      //'move-webp-low',
+      reload
+    ])
+  )
+
+  const watchSrcScriptsPath = 'src/assets/js/**/*.js'
+  gulp.watch(watchSrcScriptsPath,
+    gulp.series([
+      'build-js',
+      'bundle-js',
+      reload
+    ])
+  )
+
+  const watchSrcAppPath = 'src/views/**/*.js'
+  gulp.watch(watchSrcAppPath,
+    gulp.series([
+      'build-js',
+      'bundle-js',
+      reload
+    ])
+  )
+
+  const watchSrcScssPath = 'src/assets/scss/**/*.scss'
+  gulp.watch(watchSrcScssPath,
+    gulp.series([
+      'build-sass',
+      'bundle-css',
+      'move-css',
+      reload
+    ])
+  )
+
+  const watchSrcHtmlPath = 'src/views/**/*.html'
+  gulp.watch(watchSrcHtmlPath,
+    gulp.series([
+      'build-html',
+      'move-css',
+      reload
+    ])
+  )
+
+}))
+
