@@ -64,10 +64,8 @@ module.exports = {
     console.log(chalk `\n{bold Successfully created project} {green ${this.answers.name}}\n`)
     console.log(chalk `{bold For development:}\n`)
     console.log(chalk `${cdMsg}\t{green ${pmRun} build-dev}`)
-    console.log(chalk `\t{green ${pmRun} watch}\n`)
     console.log(chalk `{bold For production:}\n`)
-    console.log(chalk `${cdMsg}\t{green ${pmRun} build-prod}`)
-    console.log(chalk `\t{green ${pmRun} watch}\n`)
-    
+    console.log(chalk `${cdMsg}\t{green ${pmRun} build-prod}\n`)
+
   }
 }
