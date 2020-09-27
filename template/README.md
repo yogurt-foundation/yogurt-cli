@@ -22,4 +22,4 @@ $ <%= pmRun %> watch
 
 ---
 
-This frontend project is a bundle with the [Yogurt CSS](https://github.com/yogurt-foundation/yogurt-css) framework.
+This frontend project is a bundle with the [Yogurt CSS](https://yogurtcss.netlify.app) framework.
