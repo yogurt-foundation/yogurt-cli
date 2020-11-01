@@ -35,7 +35,7 @@ cli
     }
     welcome(
       `Yogurt CSS`,
-      `New project Scaffolder\n\nWelcome! The empty project bundles with Yogurt CSS framework\nalong with the convenience build tools for development an\nproduction environments.\n\nYogurt CSS (https://github.com/yogurt-foundation/yogurt-css)\n\Documentation (http://yogurt-css-documentation.netlify.app/)\n\n\Twitter (https://twitter.com/yogurtcss)\nDiscord (https://discord.gg/A62YjNR)`, {
+      `New project Scaffolder\n\nWelcome! This empty project is also a build tool that bundles\nwith preprocessors and postprocessors for the frontend\ndevelopment environment.\n\nYogurt CSS Documentation (http://yogurtcss.netlify.app/)\n\n\Twitter (https://twitter.com/yogurtcss)\nDiscord (https://discord.gg/A62YjNR)`, {
         version: `v${version}`,
         bgColor: `#ffffff`,
         color: `#000000`,
