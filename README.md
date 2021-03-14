@@ -3,7 +3,7 @@
 Create a new frontend project with [Yogurt CSS](https://github.com/yogurt-foundation/yogurt-css) framework and scaffolding instantly bundles with necessary build tools for HTML, CSS/SCSS, JS and image assets.
 
 <p align="left">
-  <img src="https://raw.githubusercontent.com/yogurt-foundation/yogurt-cli/1.1.5/assets/screenshot_01.png" height="auto" width="auto">
+  <img src="https://raw.githubusercontent.com/yogurt-foundation/yogurt-cli/1.1.5/assets/screenshot_02.png" height="auto" width="auto">
 </p>
 
 ### _usage
