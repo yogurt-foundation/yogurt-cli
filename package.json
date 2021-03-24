@@ -1,7 +1,7 @@
 {
   "name": "create-yogurt-app",
-  "version": "1.1.4",
-  "description": "Software Development Kit for Yogurt CSS",
+  "version": "1.1.5",
+  "description": "Create new frontend project with Yogurt CSS",
   "authors": "Loouis Low <loouis@gmail.com>",
   "license": "MIT",
   "bin": {
