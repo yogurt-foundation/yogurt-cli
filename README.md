@@ -26,7 +26,7 @@ $ yarn global add create-yogurt-app
 $ npm i -g create-yogurt-app
 ```
 
-simply run this,
+simply run this and follow the onscreen instructions,
 
 ```bash
 $ yogurt my-new-project
