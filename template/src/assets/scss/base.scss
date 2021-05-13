@@ -1,2 +1,20 @@
-@import '../../../framework/yogurt';
+@import '../../../node_modules/yogurt-css/yogurt.scss';
 
+/* Read Docs how to Extract Yogurt CSS utility classes
+ * without
+ * https://yogurtcss.netlify.app/extract-utility-classes/
+ */
+.footer {
+  @extend
+    .py-10,
+    .text-lg,
+    .animation,
+    .fade-in-down,
+    .delay-2;
+
+  span {
+    @extend
+      .inline-block,
+      .underline;
+  }
+}
