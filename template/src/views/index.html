@@ -19,12 +19,39 @@
           media="all">
   </head>
 
-  <body>
+  <body class="font-default antialiased text-gray-600 (dark)text-gray-300 bg-gray-100 (dark)bg-gray-800">
 
-    <y>
-      Hello World!
+    <y class="h-screen (xs)px-4 flex flex-col justify-center items-center">
+      <y class="pb-10 text-2xl animation fade-in-up delay-2">
+        Welcome to
+        <span class="mr-2 inline-block font-semibold underline">
+          Yogurt CSS
+        </span>
+        playground
+      </y>
+      <y class="(xs)max-w-full (sm)max-w-xs p-10 flex (xs)flex-col (sm)flex-row justify-around items-center bg-white (dark)bg-charcoal-900 rounded-lg shadow-dreamy w-full animation fade-in-up overflow-hidden">
+        <y class="h-20 w-20 bg-gray-600 rounded-full"></y>
+        <y class="(xs)pt-4 (sm)pt-0 (xs)text-2xl (sm)text-xl text-gray-600">
+         	Hello World!
+        </y>
+      </y>
+      <!--
+        See `src/assets/scss/base.scss` to learn understand
+        how to Extract Yogurt CSS utility classes with `@extend`
+        directive. Read more at (https://yogurtcss.netlify.app/extract-utility-classes/).
+      -->
+      <y class="footer">
+        Start craft something new
+        <span>
+          today!
+        </span>
+      </y>
     </y>
 
+    <!-- Responsive Screen Indicator -->
+    <y debug="screen" class="m-1"></y>
+
+    <!-- End Example -->
 
     <script src="assets/js/app.js"></script>
   </body>

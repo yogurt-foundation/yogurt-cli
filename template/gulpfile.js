@@ -1,11 +1,13 @@
 const autoPrefixer = require('autoprefixer')
 const clean = require('gulp-clean')
-const concatCss = require('gulp-concat-css')
 const concat = require('gulp-concat')
+const concatCss = require('gulp-concat-css')
 const gulp = require('gulp')
+const gulpLoadPlugins = require('gulp-load-plugins')
 const gutil = require('gulp-util')
 const htmlmin = require('gulp-htmlmin')
 const imagemin = require('gulp-imagemin')
+const inject = gulpLoadPlugins()
 const jsonmin = require('gulp-jsonmin')
 const mozjpeg = require('imagemin-mozjpeg')
 const pngquant = require('imagemin-pngquant')
@@ -15,12 +17,10 @@ const rename = require('gulp-rename')
 const sass = require('gulp-sass')
 const sassGlob = require('gulp-sass-glob')
 const serve = require('browser-sync').create()
-const uglifyCss = require('gulp-uglifycss')
 const uglify = require('gulp-uglify-es').default
-const webp = require('gulp-webp')
+const uglifyCss = require('gulp-uglifycss')
 const version = require('gulp-version-number')
-const gulpLoadPlugins = require('gulp-load-plugins')
-const inject = gulpLoadPlugins()
+const webp = require('gulp-webp')
 
 const frameworkPath = 'framework'
 const distJsPath = 'dist/assets/js'
@@ -78,7 +78,6 @@ gulp.task('build-sass', () => {
 })
 gulp.task('bundle-css', () => {
   return gulp.src([
-      frameworkPath + '/yogurt.min.css',
       distCssPath + '/base.css'
     ])
     .pipe(concat('style_merged.css'))
